@@ -1,0 +1,121 @@
+=respond-to($media)
+    @if $media == handhelds
+        @media only screen and (max-width: 479px)
+            @content
+    @else if $media == wide-handhelds
+        @media only screen and (min-width: 480px) and (max-width: 767px)
+            @content
+    @else if $media == tablets
+        @media only screen and (min-width: 768px) and (max-width: 959px)
+            @content
+
+@mixin animation($animate...)
+    $max: length($animate)
+    $animations: ''
+
+    @for $i from 1 through $max
+        $animations: #{$animations + nth($animate, $i)}
+
+        @if $i < $max
+            $animations: #{$animations + ", "}
+
+    -webkit-animation: $animations
+    -moz-animation:    $animations
+    -o-animation:      $animations
+    animation:         $animations
+
+
+@mixin transition($transition-property, $transition-time, $method)
+    -webkit-transition: $transition-property $transition-time $method
+    -moz-transition: $transition-property $transition-time $method
+    -ms-transition: $transition-property $transition-time $method
+    -o-transition: $transition-property $transition-time $method
+    transition: $transition-property $transition-time $method
+
+@mixin keyframes ($animation-name)
+    @-webkit-keyframes #{$animation-name}
+        @content
+
+    @-moz-keyframes #{$animation-name}
+        @content
+
+    @-ms-keyframes #{$animation-name}
+        @content
+
+    @-o-keyframes #{$animation-name}
+        @content
+
+    @keyframes #{$animation-name}
+        @content
+
+//
+//@mixin transition ($transitions...)
+//    $max: length($transitions)
+//    $animations: ''
+//
+//    @for $i from 1 through $max
+//        $animations: #{$animations + nth($animate, $i)}
+//
+//        @if $i < $max
+//            $animations: #{$animations + ", "}
+@mixin rotate($degrees)
+    -webkit-transform: rotate(#{$degrees}deg)
+    -moz-transform: rotate(#{$degrees}deg)
+    -ms-transform: rotate(#{$degrees}deg)
+    -o-transform: rotate(#{$degrees}deg)
+    transform: rotate(#{$degrees}deg)
+
+    filter:  progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($degrees)}, M12=-#{sin($degrees)}, M21=#{sin($degrees)}, M22=#{cos($degrees)})
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(sizingMethod='auto expand', M11=#{cos($degrees)}, M12=-#{sin($degrees)}, M21=#{sin($degrees)}, M22=#{cos($degrees)})"
+    zoom: 1
+
+@mixin transform-origin($args)
+    -webkit-transform-origin: $args
+    -moz-transform-origin: 50% 100%
+    -ms-transform-origin: 50% 100%
+    -o-transform-origin: 50% 100%
+    transform-origin: 50% 100%
+
+@include keyframes(rotation)
+    from
+        @include rotate(0)
+        @include transform-origin(0% 50% 5)
+    to
+        @include rotate(360)
+        @include transform-origin(0% 50% 5)
+
+@include keyframes(margin-slide-out)
+    0%
+        margin-left: 30px
+    100%
+        margin-left: 300px
+
+@include keyframes(margin-slide-in)
+    0%
+        margin-left: 300px
+    100%
+        margin-left: 30px
+
+@include keyframes(left-slide-in)
+    0%
+        left: -270px
+    100%
+        left: 0
+
+@include keyframes(left-slide-out)
+    0%
+        left: 0
+    100%
+        left: -270px
+
+@include keyframes(fade-in)
+    0%
+        opacity: 0
+    100%
+        opacity: 1
+
+@include keyframes(fade-out)
+    100%
+        opacity: 1
+    0%
+        opacity: 0

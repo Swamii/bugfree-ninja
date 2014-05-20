@@ -1,0 +1,98 @@
+@main("Map") {
+
+    <script type="text/ng-template" id="map.html">
+
+        <div class="map-wrapper">
+            <div class="row col-sm-12">
+                <div id="map-header">
+                    <h1>A map <small>with articles from <a href="//wikipedia.org" target="_blank">Wikipedia</a></small></h1>
+                    <p class="lead">Search for a location or activate auto-discover to find where you are</p>
+
+                    <div class="col-sm-4 space-bot">
+
+                        <form ng-submit="home.doCenter(home.searchValue)" name="search-form" class="form-inline" role="form">
+                            <div class="form-group">
+
+                                <label class="sr-only" for="search-value">Search</label>
+                                <input id="search-value"
+                                       class="form-control"
+                                       ng-class="{hasError: search.error !== null}"
+                                       placeholder="Search for a location.."
+                                       type="text"
+                                       ng-model="home.searchValue"
+                                       ng-options="place.label as place.label for place in home.getAddress(home.searchValue)"
+                                       typeahead-on-select="home.doCenter(home.searchValue)"
+                                       data-animation="am-flip-x"
+                                       bs-typeahead required>
+                                <span ng-show="search.error !== null" class="help-inline">
+                                    {{ search.error }}
+                                </span>
+                            </div>
+                            <button type="submit" class="btn btn-default"><i class="fa fa-globe"></i> Go</button>
+                        </form>
+
+                    </div>
+                    <div>
+                        <button class="btn btn-default" ng-if="!home.autoDiscoverActivated" ng-click="home.activateAutoDiscover()">
+                            Activate auto-discover
+                        </button>
+
+                        <button class="btn btn-default" ng-if="home.lookingForUser">
+                            <i class="fa fa-refresh spinning"></i> Loading...
+                        </button>
+
+                        <button class="btn btn-default" ng-if="home.userLocation" ng-click="home.centerOnUser()">
+                            <i class="fa fa-globe"></i> Go to my last known location
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row col-sm-12">
+                <div id="map-holder">
+                    <leaflet center="home.center" markers="home.markers" defaults="home.defaults" url-hash-center="yes"></leaflet>
+                </div>
+            </div>
+        </div>
+
+    </script>
+
+    <div class="content-wrapper row">
+
+        <div ng-controller="SidebarCtrl">
+            <div class="toggle-wrapper" ng-class="{'sidebar-open': sidebarOpen, 'animate-added': animateAdded}">
+                <a class="toggle" ng-click="toggleSidebar()">
+                    <i class="fa" ng-class="{'fa-angle-right': !sidebarOpen, 'fa-angle-left': sidebarOpen}"></i>
+                </a>
+            </div>
+
+            <div ng-show="sidebarOpen" class="sidebar">
+
+                <div class="sidebar-header">
+                    <h3>Events</h3>
+                </div>
+
+                <div class="sidebar-content">
+                    <ul class="events">
+                        <li ng-repeat="event in events" class="event">
+                            <div class="event-wrapper">
+                                <span class="event-message" ng-bind-html="event.message"></span>
+                                <span ng-if="event.onClick"> -
+                                    <a class="event-clicker" ng-click="event.onClick()">
+                                        <i class="fa fa-globe"></i> Click!
+                                    </a>
+                                </span> -
+                                <time>{{ event.timestamp | date:'yyyy-MM-dd HH:mm' }}</time>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div ui-view>
+
+        </div>
+    </div>
+
+}

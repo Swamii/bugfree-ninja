@@ -1,0 +1,45 @@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+<html ng-app="map" ng-class="{'sidebared': sidebarOpen === true}">
+    @*minimize="400" minimize-on="sidebarOpen"*@
+    <head>
+        <title>@title</title>
+        <link rel='shortcut icon' type='image/png' href='@routes.Assets.at("images/favicon.png")'>
+        <link rel='stylesheet' href='@routes.Assets.at("vendor/bootstrap/dist/css/bootstrap.css")'>
+        <link rel='stylesheet' href='@routes.Assets.at("vendor/components-font-awesome/css/font-awesome.css")'>
+        <link rel='stylesheet' href='@routes.Assets.at("vendor/angular-motion/dist/angular-motion.css")'>
+        <link rel='stylesheet' href='@routes.Assets.at("vendor/leaflet-dist/leaflet.css")'>
+        <link rel='stylesheet' href='@routes.Assets.at("dist/main.css")'>
+    </head>
+    <body ng-class="{loaded: true}">
+
+        <div class="navbar navbar-default" role="navigation" bs-navbar>
+            <div class="navbar-header">
+                <a ui-sref="home" class="navbar-brand" href="#">Map</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a ui-sref="home">Home</a></li>
+                <li data-match-route="/about"><a ui-sref="about">About</a></li>
+                <li data-match-route="/contact"><a ui-sref="contact">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="container-fluid">
+        @content
+        </div>
+
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+        <script type='text/javascript' src='@routes.Assets.at("vendor/jquery/dist/jquery.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("vendor/leaflet-dist/leaflet-src.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("vendor/angular/angular.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("vendor/angular-sanitize/angular-sanitize.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("vendor/angular-animate/angular-animate.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("vendor/angular-strap/dist/angular-strap.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("vendor/angular-strap/dist/angular-strap.tpl.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("vendor/angular-ui-router/release/angular-ui-router.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("vendor/angular-leaflet-directive/dist/angular-leaflet-directive.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("dist/app.js")'></script>
+
+    </body>
+</html>

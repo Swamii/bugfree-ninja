@@ -1,0 +1,30 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+##### HOME #####
+
+# Home page
+GET            /                     controllers.MainController.index()
+
+##### API #####
+
+# Wiki methods
+GET            /api/wiki             controllers.MainController.wiki(lat: Double, lng: Double, limit: Integer ?= 0)
+GET            /api/wiki-info        controllers.MainController.wikiInfo(articleId: Long, locale: String ?= "en")
+
+# Auth
+POST           /api/say-hi           controllers.AuthController.sayHi()
+PUT            /api/register         controllers.AuthController.register()
+
+# Upload
+POST           /api/upload           controllers.MainController.upload()
+POST           /api/submit-ad        controllers.MainController.submitAdForm()
+
+##### ASSETS #####
+
+# Map static resources from the /public folder to the /assets URL path
+# For local dev ONLY, should be handled by web server.
+GET            /assets/*file         controllers.Assets.at(path="/public", file)
+GET            /uploads/*file        controllers.MainController.asset(file)
+OPTIONS        /*path                controllers.MainController.checkPreFlight(path)

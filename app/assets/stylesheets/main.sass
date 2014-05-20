@@ -1,0 +1,176 @@
+@import "keyframes"
+
+$text-color: #333
+$header-height: 50px
+$sidebar-width: 400px
+$sidebar-background: #f5f5f5
+
+html
+    @include transition(margin-left, 500ms, ease)
+    margin-left: 0
+
+    &.sidebared
+        margin-left: $sidebar-width
+        @include transition(margin-left, 500ms, ease)
+        //float: right
+        //@include animation('margin-slide-out 100ms ease-out')
+        //padding-left: $sidebar-width
+        //padding-left: 15px
+
+    &.sidebared-add, &.sidebared-remove
+        @include transition(margin-left, 500ms, ease)
+        @include transition(float, 500ms, ease)
+
+body
+    opacity: 0
+    margin-left: 30px
+    @include transition(margin-left, 200ms, ease)
+    @include transition(width, 200ms, ease)
+
+    &.sidebared
+        float: right
+
+    &.loaded
+        @include animation('fade-in 200ms linear')
+        opacity: 1
+
+.space-bot
+    margin-bottom: 15px
+
+.space-top
+    margin-top: 15px
+
+.space-both
+    margin: 15px inherit
+
+.content-wrapper
+    position: relative
+
+.spinning
+    @include animation('rotation 2s infinite linear')
+
+.map-wrapper
+
+    #map-header
+        padding-bottom: 15px
+
+        & > input
+            margin: 10px 0
+
+    #map-holder
+
+        .angular-leaflet-map
+            height: 700px
+
+            +respond-to(tablets)
+                height: 400px
+
+        .leaflet-popup-content
+            padding: 0 19px
+            margin: 15px 0
+            max-height: 400px
+            width: 400px !important
+            overflow: scroll
+
+            +respond-to(tablets)
+                width: 300px !important
+                max-height: 300px
+
+            +respond-to(wide-handhelds)
+                width: 200px !important
+                max-height: 250px
+
+            +respond-to(handhelds)
+                width: 150px !important
+                max-height: 200px
+
+            .magnify
+                display: inline
+
+            .thumb
+                margin: 10px 0
+
+            tr
+                max-width: 394px
+
+                td.label
+                    color: $text-color
+                    display: table-cell
+                    font-size: 100%
+                    text-align: inherit
+
+.toggle-wrapper
+    @include transition(left, 200ms, ease)
+    z-index: 10
+    position: fixed
+    top: 0
+    left: 0
+    padding-left: 5px
+
+    .toggle
+        text-align: center
+
+        i
+            font-size: $header-height
+
+    &.animate-added
+        @include animation(left, 200ms, ease, infinite)
+        left: 30px
+
+        i
+            @include animation(font-size, 200ms, ease infinite)
+            font-size: $header-height * 2
+
+    &.sidebar-open
+        left: $sidebar-width - 30px
+
+        &.animate-added
+            left: 100px
+
+.sidebar
+    @include transition(left, 200ms, ease)
+    z-index: 5
+    display: block !important
+    background: $sidebar-background
+    border-right: 1px solid #ccc
+    position: fixed
+    height: 100%
+    top: 0
+    left: 0
+    width: $sidebar-width
+    float: left
+    overflow: scroll
+
+    .sidebar-header
+        padding: 5px
+
+        h3
+            margin: 8px 0 10px 0
+
+    .sidebar-content
+        border-top: 1px dashed #ccc
+        visibility: visible
+
+    ul.events
+        list-style-type: none
+        margin: 0
+        padding: 0
+
+        li.event
+            border-bottom: 1px solid #dca7a7
+
+            .event-wrapper
+                padding: 10px 5px
+
+                .event-clicker
+                    cursor: pointer
+
+                .event-message
+                    color: blue
+
+                time
+                    font-size: 75%
+                    font-style: italic
+
+    &.ng-hide
+        left: -$sidebar-width

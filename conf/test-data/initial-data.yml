@@ -1,0 +1,54 @@
+ads:
+    - !!ad.models.Ad
+         name: Woo
+         description: Foo
+
+users:
+    - !!auth.models.User
+        email: lala@test.ok
+        deviceUUID: sdasqf4sdsdsdf
+        apiKey: 23123-1231231-213213cs
+        secret: 2e16903d6f5d01b2051bec2c04ff0d37639f6d9133a2902e6dc1f5c5f5d701e1
+    - !!auth.models.User
+        deviceUUID: 34rwfdsfsdfadfs
+        apiKey: 2313efsdf-sdae2eqfa-asd3
+
+
+enLocations:
+    - !!wikilocation.models.EnLocation
+        id:   231231231
+        articleId: 23123123123
+        lat:  51.123234
+        lng:  0.11111
+        type: landmark
+        title: A cool landmark
+    - !!wikilocation.models.EnLocation
+        id:   231231232
+        articleId: 231211453123
+        lat:  45.123234
+        lng:  -1.11111
+        type: glacier
+        title: A cool glacier
+    - !!wikilocation.models.EnLocation
+        id:   4612311
+        articleId: 211311113123
+        lat:  38.123124
+        lng:  10.11111
+        type: airport
+        title: A really cool airport
+    - !!wikilocation.models.EnLocation
+        id:   24444231
+        articleId: 6663123123
+        lat:  45.123234
+        lng:  16.11111
+        type: landmark
+        title: Another cool landmark
+    - !!wikilocation.models.EnLocation
+        id:   231288881
+        articleId: 77723123123
+        lat:  10.123234
+        lng:  50.11111
+        type: railwaystation
+        title: A cool railwaystation
+
+

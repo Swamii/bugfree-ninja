@@ -1,0 +1,30 @@
+<div class="row">
+    <div id="map-header">
+        <h1>A map</h1>
+        <p class="lead">Search for a location or activate auto-discover to find where you are</p>
+        <div class="col-sm-4 space-bot">
+            <form ng-submit="search.go()" name="search-form" class="form-inline" role="form">
+                <div class="form-group">
+                    <label class="sr-only" for="search-value">Email address</label>
+                    <input class="form-control" ng-class="{hasError: search.error !== null}" placeholder="Search for a location.." type="text"
+                           ng-model="search.value" ng-disabled="search.active" id="search-value" required>
+                        <span ng-show="search.error !== null" class="help-inline">
+                            {{ search.error }}
+                        </span>
+                </div>
+                <button type="submit" class="btn btn-default">Go</button>
+            </form>
+        </div>
+        <div ng-if="!autoDiscoverActivated" class="col-sm-2">
+            <button class="btn btn-default" ng-click="activateAutoDiscover()">
+                Activate auto-discover
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div id="map-holder">
+        <leaflet center="center" defaults="defaults" width="1000px" height="680px"></leaflet>
+    </div>
+</div>
